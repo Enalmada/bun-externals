@@ -1,40 +1,46 @@
-# npm-module-template
+# bun-externals
 
 ## What
-* [bun](https://bun.sh/docs/bundler) build - with types the best I could (see build notes below)
-* [eslint](https://eslint.org/) with [prettier](https://prettier.io/) formatting
-* [fixpack](https://www.npmjs.com/package/fixpack) to normalize package.json changes along with `npm pkg fix`
-* [husky](https://typicode.github.io/husky/) pre commit hooks
-* [changesets](https://github.com/changesets/changesets) change and release workflow
+Workaround for bun not having a way to define all node_modules as external
+https://github.com/oven-sh/bun/issues/6351
 
 ## Installation
-Click the [Use this template](https://github.com/Enalmada/npm-module-template/generate) button to create a new repository 
-(or run `bun create Enalmada/npm-module-template <your-new-library-name>`)
+`bun install -D @enalmada/bun-externals`
 
-To switch existing repository 
-* `git remote add template https://github.com/Enalmada/npm-module-template`
-* `git fetch template`
-* `git merge template/main --allow-unrelated-histories`
-* resolve conflicts and merge
+## Usage
+```ts
+// build.ts
+/// <reference types="bun-types" />
 
-### Github settings
-* add NPM_TOKEN with access to deploy to npm to environment variables
-* Actions > General > Workflow Permissions
-  * Read and Write (to allow changesets to create changelog, and release)
-  * Allow github actions to create and approve PR
+import getExternalDependencies from '@enalmada/bun-externals';
 
-## Workflow
-* install dependencies `bun install`
-* lint files `bun lint:fix`
-* run tests `bun run test` (not `bun test` as we are not using native tests)
-* run build `bun run build` (not `bun build` as we are using build script)
-* create changeset before PR `changeset` and choose appropriate semver and changelog
+export async function buildWithExternals(): Promise<void> {
+  const externals = await getExternalDependencies();
 
-### TODO
-- [ ] tests framework to bun (when bun supports mocking modules)
+  const result = await Bun.build({
+    entrypoints: ['./src/index.ts'],
+    outdir: './dist',
+    target: 'node',
+    external: externals,
+    root: './src',
+  });
 
-### inspiration
-* [bun-lib-starter](https://github.com/wobsoriano/bun-lib-starter)
+  if (!result.success) {
+    console.error('Build failed');
+    for (const message of result.logs) {
+      console.error(message);
+    }
+    throw new AggregateError(result.logs, 'Build failed');
+  }
+}
+
+void buildWithExternals();
+```
+See build.ts for example
+
+## TODO
+- [ ] deprecate with a plugin or actual bun feature
+
 
 ## Notes
 ### Build
