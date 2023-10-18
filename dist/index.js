@@ -1,4 +1,17 @@
 // src/index.ts
+function handleBuildResult(result) {
+  if (!result.success) {
+    console.error("Build failed");
+    for (const message of result.logs) {
+      console.error(message);
+    }
+    throw new AggregateError(result.logs, "Build failed");
+  }
+}
+async function bunBuild(options) {
+  const result = await Bun.build(options);
+  handleBuildResult(result);
+}
 async function getExternalsFromCurrentWorkingDirPackageJson() {
   const pathToProjectPackageJson = `${process.cwd()}/package.json`;
   let packageJson;
@@ -17,5 +30,7 @@ async function getExternalsFromCurrentWorkingDirPackageJson() {
   return Array.from(new Set(externals));
 }
 export {
-  getExternalsFromCurrentWorkingDirPackageJson as default
+  handleBuildResult,
+  getExternalsFromCurrentWorkingDirPackageJson as default,
+  bunBuild
 };
