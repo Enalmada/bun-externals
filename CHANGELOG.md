@@ -1,5 +1,11 @@
 # @enalmada/storybook-addon-mock-urql
 
+## 0.0.3
+
+### Patch Changes
+
+- 6d80cce: error handling bunBuild
+
 ## 0.0.2
 
 ### Patch Changes
