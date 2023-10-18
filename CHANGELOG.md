@@ -1,5 +1,11 @@
 # @enalmada/storybook-addon-mock-urql
 
+## 0.0.2
+
+### Patch Changes
+
+- a3f6738: initial
+
 ## 0.0.6
 
 ### Patch Changes
