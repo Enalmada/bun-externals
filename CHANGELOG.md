@@ -1,5 +1,13 @@
 # @enalmada/storybook-addon-mock-urql
 
+## 0.0.4
+
+### Patch Changes
+
+- 44d0ae0: workspace support (look in ../../package.json)
+- 452f543: Updated dependency `lint-staged` to `15.0.2`.
+- 44d0ae0: dependency updates
+
 ## 0.0.3
 
 ### Patch Changes
