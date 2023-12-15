@@ -1,7 +1,7 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 /// <reference types="bun-types" />
 
-import getExternalsFromCurrentWorkingDirPackageJson from '../src'; // Adjust the import to your actual file structure
+import getExternalsFromCurrentWorkingDirPackageJson from '../src';
 
 const mockDeps = {
   dependencies: {
