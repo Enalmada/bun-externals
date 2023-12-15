@@ -1,5 +1,11 @@
 # @enalmada/storybook-addon-mock-urql
 
+## 0.0.6
+
+### Patch Changes
+
+- aefaab9: support for adding 'use client'
+
 ## 0.0.5
 
 ### Patch Changes
