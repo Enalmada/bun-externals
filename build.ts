@@ -1,15 +1,15 @@
 /// <reference types="bun-types" />
 
-import getExternalDependencies, { bunBuild } from './src';
+import { bunBuild, getSourceFiles } from './src';
 
 export async function buildWithExternals(): Promise<void> {
-  const externals = await getExternalDependencies();
+  const entrypoints = await getSourceFiles();
 
   await bunBuild({
-    entrypoints: ['./src/index.ts'],
+    entrypoints,
     outdir: './dist',
     target: 'node',
-    external: externals,
+    external: ['*'],
     root: './src',
   });
 }
