@@ -23,7 +23,7 @@
     "@types/node": "20.11.16",
     "@typescript-eslint/eslint-plugin": "6.14.0",
     "@typescript-eslint/parser": "6.14.0",
-    "bun-types": "1.0.25",
+    "bun-types": "1.0.26",
     "cross-env": "7.0.3",
     "eslint": "8.56.0",
     "eslint-config-prettier": "9.1.0",
