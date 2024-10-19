@@ -1,7 +1,7 @@
-/* eslint-disable @typescript-eslint/no-explicit-any, @typescript-eslint/no-unsafe-argument */
-
-/// <reference types="bun-types" />
-
-export async function bunBuildWrapper(options: any): Promise<{ success: boolean; logs: any[] }> {
-  return Bun.build(options);
+export async function bunBuildWrapper(
+	// biome-ignore lint/suspicious/noExplicitAny: TBD
+	options: any,
+	// biome-ignore lint/suspicious/noExplicitAny: TBD
+): Promise<{ success: boolean; logs: any[] }> {
+	return Bun.build(options);
 }
