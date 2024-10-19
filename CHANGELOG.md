@@ -1,5 +1,12 @@
 # @enalmada/storybook-addon-mock-urql
 
+## 0.0.7
+
+### Patch Changes
+
+- 3f2eb98: dependency updates
+- 3f2eb98: eslint to biome migration
+
 ## 0.0.6
 
 ### Patch Changes
