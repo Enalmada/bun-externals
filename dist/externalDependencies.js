@@ -1,13 +1,19 @@
 // src/externalDependencies.ts
+import { promises as fs } from "node:fs";
 async function loadPackageJson(path) {
   try {
-    return await import(path);
+    const content = await fs.readFile(path, "utf-8");
+    return JSON.parse(content);
   } catch (err) {
     return {};
   }
 }
 async function getExternalsFromPackageJsonPaths(paths) {
-  const sections = ["dependencies", "devDependencies", "peerDependencies"];
+  const sections = [
+    "dependencies",
+    "devDependencies",
+    "peerDependencies"
+  ];
   const externals = [];
   for (const path of paths) {
     const packageJson = await loadPackageJson(path);
@@ -20,7 +26,10 @@ async function getExternalsFromPackageJsonPaths(paths) {
   return Array.from(new Set(externals));
 }
 async function getExternalsFromCurrentWorkingDirPackageJson() {
-  const paths = [`${process.cwd()}/../../package.json`, `${process.cwd()}/package.json`];
+  const paths = [
+    `${process.cwd()}/../../package.json`,
+    `${process.cwd()}/package.json`
+  ];
   return getExternalsFromPackageJsonPaths(paths);
 }
 export {

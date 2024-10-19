@@ -1,5 +1,5 @@
 // src/bunBuild.ts
-import {bunBuildWrapper} from "./bunUtils";
+import { bunBuildWrapper } from "./bunUtils";
 function handleBuildResult(result) {
   if (!result.success) {
     console.error("Build failed");
