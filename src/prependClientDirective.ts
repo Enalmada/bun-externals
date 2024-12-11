@@ -43,8 +43,7 @@ function prependDirectiveToBuiltFiles(
 			const content = fs.readFileSync(distPath, "utf-8");
 			const updatedContent = `'use client';\n\n${content}`;
 			fs.writeFileSync(distPath, updatedContent);
-			// eslint-disable-next-line no-console
-			console.log(`Prepended 'use client' directive to ${distPath}`);
+			console.warn(`Prepended 'use client' directive to ${distPath}`);
 		}
 	});
 }
@@ -67,8 +66,7 @@ function removeBadClientStringFromFiles(dir: string) {
 			if (content.includes(targetString)) {
 				content = content.replace(new RegExp(targetString, "g"), "");
 				fs.writeFileSync(filePath, content, "utf8");
-				// eslint-disable-next-line no-console
-				console.log(`Removed bad string from ${filePath}`);
+				console.warn(`Removed bad string from ${filePath}`);
 			}
 		}
 	});

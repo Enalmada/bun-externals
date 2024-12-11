@@ -26,9 +26,11 @@ function prependDirectiveToBuiltFiles(srcDirectory, buildDirectory) {
     const distPath = path.join(buildDirectory, relativePath).replace(/\.tsx?$/, ".js");
     if (fs.existsSync(distPath)) {
       const content = fs.readFileSync(distPath, "utf-8");
-      const updatedContent = `'use client';\n\n${content}`;
+      const updatedContent = `'use client';
+
+${content}`;
       fs.writeFileSync(distPath, updatedContent);
-      console.log(`Prepended 'use client' directive to ${distPath}`);
+      console.warn(`Prepended 'use client' directive to ${distPath}`);
     }
   });
 }
@@ -45,7 +47,7 @@ function removeBadClientStringFromFiles(dir) {
       if (content.includes(targetString)) {
         content = content.replace(new RegExp(targetString, "g"), "");
         fs.writeFileSync(filePath, content, "utf8");
-        console.log(`Removed bad string from ${filePath}`);
+        console.warn(`Removed bad string from ${filePath}`);
       }
     }
   });
