@@ -8,7 +8,6 @@ function findFilesWithDirective(directory: string) {
 
 	const items = fs.readdirSync(directory);
 
-	// biome-ignore lint/complexity/noForEach: TBD
 	items.forEach((item) => {
 		const itemPath = path.join(directory, item);
 		const stat = fs.statSync(itemPath);
@@ -26,23 +25,18 @@ function findFilesWithDirective(directory: string) {
 	return results;
 }
 
-function prependDirectiveToBuiltFiles(
-	srcDirectory: string,
-	buildDirectory: string,
-) {
+function prependDirectiveToBuiltFiles(srcDirectory: string, buildDirectory: string) {
 	const files = findFilesWithDirective(srcDirectory);
 
-	// biome-ignore lint/complexity/noForEach: TBD
 	files.forEach((file) => {
 		const relativePath = path.relative(srcDirectory, file);
-		const distPath = path
-			.join(buildDirectory, relativePath)
-			.replace(/\.tsx?$/, ".js");
+		const distPath = path.join(buildDirectory, relativePath).replace(/\.tsx?$/, ".js");
 
 		if (fs.existsSync(distPath)) {
 			const content = fs.readFileSync(distPath, "utf-8");
 			const updatedContent = `'use client';\n\n${content}`;
 			fs.writeFileSync(distPath, updatedContent);
+			// biome-ignore lint/suspicious/noConsole: Build output
 			console.warn(`Prepended 'use client' directive to ${distPath}`);
 		}
 	});
@@ -54,7 +48,6 @@ function removeBadClientStringFromFiles(dir: string) {
 
 	const files = fs.readdirSync(dir);
 
-	// biome-ignore lint/complexity/noForEach: TBD
 	files.forEach((file) => {
 		const filePath = path.join(dir, file);
 		const stats = fs.statSync(filePath);
@@ -66,6 +59,7 @@ function removeBadClientStringFromFiles(dir: string) {
 			if (content.includes(targetString)) {
 				content = content.replace(new RegExp(targetString, "g"), "");
 				fs.writeFileSync(filePath, content, "utf8");
+				// biome-ignore lint/suspicious/noConsole: Build output
 				console.warn(`Removed bad string from ${filePath}`);
 			}
 		}

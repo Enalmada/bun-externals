@@ -10,8 +10,6 @@ https://github.com/oven-sh/bun/issues/6351
 ## Usage
 ```ts
 // build.ts
-/// <reference types="bun-types" />
-
 import getExternalDependencies from '@enalmada/bun-externals';
 
 export async function buildWithExternals(): Promise<void> {
