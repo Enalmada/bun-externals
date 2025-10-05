@@ -1,5 +1,6 @@
 {
 	"$schema": "https://turbo.build/schema.json",
+	"ui": "tui",
 	"tasks": {
 		"build": {
 			"cache": false,
@@ -16,23 +17,14 @@
 			"dependsOn": ["build:clear"],
 			"outputs": ["dist/**"]
 		},
-		"test": {
-			"inputs": ["src/**/*.tsx", "src/**/*.ts"]
+		"lint": {
+			"inputs": ["src/**/*.ts", "src/**/*.tsx", "test/**/*.ts", "test/**/*.tsx", "biome.jsonc"]
 		},
 		"test:unit": {
-			"inputs": ["src/**/*.tsx", "src/**/*.ts"]
+			"inputs": ["src/**/*.ts", "src/**/*.tsx", "test/**/*.ts", "test/**/*.tsx", "vitest.config.ts"]
 		},
-		"lint": {},
-		"lint:fix": {
-			"inputs": ["src/**/*.tsx", "src/**/*.ts"]
-		},
-		"build:pack": {
-			"inputs": ["src/**/*.tsx", "src/**/*.ts"],
-			"outputs": ["dist/**"]
-		},
-		"type-check": {},
-		"dev:install": {
-			"inputs": ["package.json", "bun.lockb"]
+		"type-check": {
+			"inputs": ["src/**/*.ts", "src/**/*.tsx", "tsconfig.json"]
 		}
 	}
 }

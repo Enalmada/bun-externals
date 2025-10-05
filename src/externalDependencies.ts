@@ -11,19 +11,13 @@ async function loadPackageJson(path: string): Promise<PackageJson> {
 	try {
 		const content = await fs.readFile(path, "utf-8");
 		return JSON.parse(content) as PackageJson;
-	} catch (err) {
+	} catch (_err) {
 		return {}; // Return an empty object if the file is not found
 	}
 }
 
-export async function getExternalsFromPackageJsonPaths(
-	paths: string[],
-): Promise<string[]> {
-	const sections: (keyof PackageJson)[] = [
-		"dependencies",
-		"devDependencies",
-		"peerDependencies",
-	];
+export async function getExternalsFromPackageJsonPaths(paths: string[]): Promise<string[]> {
+	const sections: (keyof PackageJson)[] = ["dependencies", "devDependencies", "peerDependencies"];
 	const externals: string[] = [];
 
 	for (const path of paths) {
@@ -39,12 +33,7 @@ export async function getExternalsFromPackageJsonPaths(
 	return Array.from(new Set(externals)); // Remove duplicates
 }
 
-export default async function getExternalsFromCurrentWorkingDirPackageJson(): Promise<
-	string[]
-> {
-	const paths = [
-		`${process.cwd()}/../../package.json`,
-		`${process.cwd()}/package.json`,
-	];
+export default async function getExternalsFromCurrentWorkingDirPackageJson(): Promise<string[]> {
+	const paths = [`${process.cwd()}/../../package.json`, `${process.cwd()}/package.json`];
 	return getExternalsFromPackageJsonPaths(paths);
 }

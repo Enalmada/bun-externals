@@ -1,5 +1,3 @@
-/// <reference types="bun-types" />
-
 import { bunBuild, getSourceFiles } from "./src";
 
 export async function buildWithExternals(): Promise<void> {

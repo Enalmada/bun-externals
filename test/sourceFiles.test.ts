@@ -19,10 +19,7 @@ describe("getSourceFiles", () => {
 
 		const files = await getSourceFiles();
 
-		expect(mockFg).toHaveBeenCalledWith(
-			"./src/**/*.{ts,tsx,js,jsx}",
-			undefined,
-		);
+		expect(mockFg).toHaveBeenCalledWith("./src/**/*.{ts,tsx,js,jsx}", undefined);
 		expect(files).toEqual(["./src/file1.ts", "./src/file2.ts"]);
 	});
 

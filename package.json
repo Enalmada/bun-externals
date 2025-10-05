@@ -3,32 +3,32 @@
 	"version": "0.0.8",
 	"scripts": {
 		"build": "bun build:clear && bun build:script && bun build:declaration",
-		"build:clear": "rm -rf dist",
+		"build:clear": "node -e \"require('fs').rmSync('dist', {recursive: true, force: true})\"",
 		"build:declaration": "tsc --emitDeclarationOnly",
 		"build:script": "cross-env NODE_ENV=production bun build.ts",
+		"check": "turbo lint type-check test:unit",
 		"lint": "biome check --fix --unsafe",
-		"pre-commit": "bun lint-staged",
-		"prepare": "husky install",
+		"prepare": "lefthook install",
 		"release": "bun run build && bunx changeset publish",
 		"test": "bun run test:unit",
-		"test:unit": "cross-env NODE_ENV=test vitest",
+		"test:unit": "cross-env NODE_ENV=test vitest --run",
 		"type-check": "bun --bun tsc --noEmit"
 	},
 	"dependencies": {
-		"fast-glob": "^3.3.2"
+		"fast-glob": "^3.3.3"
 	},
 	"devDependencies": {
-		"@biomejs/biome": "1.9.4",
-		"@changesets/cli": "2.27.10",
-		"@scaleway/changesets-renovate": "2.1.2",
-		"@types/bun": "^1.1.14",
-		"@types/node": "22.10.1",
-		"cross-env": "7.0.3",
+		"@biomejs/biome": "2.2.5",
+		"@changesets/cli": "2.29.7",
+		"@scaleway/changesets-renovate": "2.2.1",
+		"@types/bun": "^1.2.23",
+		"@types/node": "24.6.2",
+		"cross-env": "10.1.0",
 		"fixpack": "4.0.0",
-		"husky": "9.1.7",
-		"lint-staged": "15.2.11",
-		"typescript": "5.7.2",
-		"vitest": "2.1.8"
+		"lefthook": "^1.13.6",
+		"turbo": "^2.5.8",
+		"typescript": "5.9.3",
+		"vitest": "3.2.4"
 	},
 	"main": "dist/index.js",
 	"types": "dist/index.d.ts",
@@ -49,6 +49,22 @@
 		"access": "public"
 	},
 	"type": "module",
-	"packageManager": "bun@1.1.38",
-	"trustedDependencies": ["@biomejs/biome"]
+	"exports": {
+		".": {
+			"types": "./dist/index.d.ts",
+			"import": "./dist/index.js",
+			"default": "./dist/index.js"
+		}
+	},
+	"engines": {
+		"node": ">=18.0.0"
+	},
+	"files": [
+		"dist"
+	],
+	"packageManager": "bun@1.2.23",
+	"sideEffects": false,
+	"trustedDependencies": [
+		"@biomejs/biome"
+	]
 }

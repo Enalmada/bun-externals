@@ -6,8 +6,10 @@ export function handleBuildResult(result: {
 	logs: any[];
 }): void {
 	if (!result.success) {
+		// biome-ignore lint/suspicious/noConsole: Build error reporting
 		console.error("Build failed");
 		for (const message of result.logs) {
+			// biome-ignore lint/suspicious/noConsole: Build error reporting
 			console.error(message);
 		}
 		throw new AggregateError(result.logs, "Build failed");
