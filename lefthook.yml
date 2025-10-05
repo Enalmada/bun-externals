@@ -1,5 +1,8 @@
 pre-commit:
   parallel: true
+  skip:
+    - ref: $CI
+      reason: "Skipping hooks in CI environment"
   commands:
     type-check:
       glob: "**/*.{ts,tsx}"
